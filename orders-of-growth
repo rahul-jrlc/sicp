@@ -1,0 +1,49 @@
+#lang simply-scheme
+;; COMPUTING FACTORIAL USING RECURSION
+(define (fact-recur n)
+  (if (= n 1)
+      1
+      (* n (fact-recur (- n 1)))))
+(fact-recur 4)
+
+;; COMPUTING FACTORIAL USING ITERATIVE PROCESS
+(define (fact-iter product counter n)
+  (if (> counter n)
+      product
+      (fact-iter (* product counter) (+ counter 1) n)))
+(define (factorial n)(fact-iter 1 1 n))
+(factorial 4)
+
+;;; ORDERS OF GROWTH
+;; EFFICIENCY OF AN ALGORITHM MEASURED IN NUMBER OF
+;; TIMES SOME PRIMITIVE FIXED-TIME OPERATION IS PERFORMED
+;; I.E THE NUMBER OF STEPS TAKEN TO COMPUTE A PROCESS
+
+;; Program that takes sentence of numbers and returns
+;; sentence of squares
+(define (square x)(* x x))
+(define (squares nums)
+  (if (empty? nums)
+      '()
+      (se (square (first nums))
+          (squares (bf nums)))))
+(squares '(2 3 4 5 6 7))
+;;(se (square 2) (squares '(3 4 5 6 7)))
+;;(se 4 (se (square 3) (squares '(4 5 6 7))))
+;;(se 4 (se 9 (se (square 4) (squares '(5 6 7))))
+;;(se 4 (se 9 (se 16 (se 25 (se 36 (se 49))))))
+;;(se 4 (se 9 (se 16 (se 25 (se 36 '(49))))))
+;;(se 4 (se 9 (se 16 (se 25 '(36 49))))
+;;(4 9 16 25 36 49)
+
+;; INSERTION SORT
+(define (insert num sent)
+  (cond ((empty? sent) (se num sent))
+        ((< num (first sent)) (se num sent))
+        (else (se (first sent) (insert num (bf sent))))))
+
+(define (sort sent)
+  (if (empty? sent)
+      '()
+      (insert (first sent)
+              (sort (bf sent)))))
